@@ -6,15 +6,20 @@ import {Map, Marker, Popup} from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import {Room, Star} from "@mui/icons-material"
 import {format} from 'timeago.js'
+import Register from './components/Register';
+import Login from './components/Login';
 
 function App() {
-  const currentUser = "Gurjog";
+  const myStorage = window.localStorage;
+  const [currentUser, setCurrentUser] = useState(myStorage.getItem('username'));
   const [pins, setPins] = useState([]);
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
   const [newPlace, setNewPlace] = useState(null);
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
   const [rating, setRating] = useState(0);
+  const [showRegister, setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
   const [viewState, setViewState] = useState({
     longitude: 0.1246,
     latitude: 51.5007,
@@ -47,6 +52,11 @@ function App() {
     }
     getPins()
   }, []);
+
+  const handleLogout = () => {
+    myStorage.removeItem('username');
+    setCurrentUser(null);
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -141,18 +151,15 @@ function App() {
              </form>
             </div>
             </Popup>}
-
-     
+            {currentUser ? (<button className='appLogoutButton' onClick = {handleLogout}>Logout</button>): 
+            <div className='appButtons'>
+              <button className='appLoginButton' onClick={() => setShowLogin(true)}>Login</button>
+              <button className='appRegisterButton' onClick={() => setShowRegister(true)}>Register</button>
+            </div> }
+            {showRegister && <Register setShowRegister = {setShowRegister}/>}
+            {showLogin && <Login setShowLogin = {setShowLogin} myStorage = {myStorage} setCurrentUser = {setCurrentUser}/>}
     </Map>
-
-    <button className='appLogoutButton'>Logout</button>
-    <button className='appLoginButton'>Login</button>
-    <button>Register</button>
-
     </div>
-
-
-    
     
   );
 }

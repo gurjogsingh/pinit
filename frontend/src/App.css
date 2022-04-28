@@ -61,3 +61,43 @@ input::placeholder, textarea::placeholder{
     background-color: tomato;
     cursor: pointer;
 }
+
+.appLogoutButton{
+    border: none;
+    padding: 7px;
+    border-radius: 5px;
+    color: white;
+    background-color: tomato;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.appLoginButton{
+    border: none;
+    padding: 7px;
+    border-radius: 5px;
+    color: white;
+    background-color: teal;
+    cursor: pointer;
+    margin-right: 10px;
+
+    
+}
+
+.appRegisterButton{
+    border: none;
+    padding: 7px;
+    border-radius: 5px;
+    color: white;
+    background-color: slateblue;
+    cursor: pointer;
+
+    
+}
+.appButtons{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
