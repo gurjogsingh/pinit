@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const Pin = require("../models/Pin");
 
+
 //creating a pin (POST METHOD)
 
 router.post("/", async (req, res) => {
