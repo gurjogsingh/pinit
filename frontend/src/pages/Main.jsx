@@ -1,86 +1,87 @@
-import logo from './logo.svg';
-import './app.css'
+
+import './main.css'
 import axios from 'axios'
 import {useEffect, useState} from 'react';
 import {Map, Marker, Popup} from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import {Room, Star} from "@mui/icons-material"
 import {format} from 'timeago.js'
-import Register from './components/Register';
-import Login from './components/Login';
+import Register from './Register';
+import Login from './Login';
 
-function App() {
-  const myStorage = window.localStorage;
-  const [currentUser, setCurrentUser] = useState(myStorage.getItem('username'));
-  const [pins, setPins] = useState([]);
-  const [currentPlaceId, setCurrentPlaceId] = useState(null);
-  const [newPlace, setNewPlace] = useState(null);
-  const [title, setTitle] = useState(null);
-  const [description, setDescription] = useState(null);
-  const [rating, setRating] = useState(0);
-  const [showRegister, setShowRegister] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
-  const [viewState, setViewState] = useState({
-    longitude: 0.1246,
-    latitude: 51.5007,
-    zoom: 5})
-  const [showPopup, setShowPopup] = useState(true);
-  
-  const handleMarkerClick = (id, latitude, longitude) => {
-    setCurrentPlaceId(id);
-    setViewState({...viewState, latitude: latitude, longitude: longitude});
-  }
+function Main(){
 
-  const handleAddClick = (e) => {
-    const longitude = e.lngLat.lng;
-    const latitude = e.lngLat.lat;
-    setNewPlace({
-      'latitude': latitude,
-      'longitude': longitude
-    })
- 
-  }
-
-  useEffect(() => {
-    const getPins = async () => {
-      try {
-        const response = await axios.get("http://localhost:8800/pins");
-        setPins(response.data);
-      } catch(e){
-        console.log(e)
-      }
-    }
-    getPins()
-  }, []);
-
-  const handleLogout = () => {
-    myStorage.removeItem('username');
-    setCurrentUser(null);
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const newPin = {
-      'username': currentUser,
-      'title': title,
-      'description': description,
-      'rating': rating,
-      'latitude': newPlace.latitude,
-      'longitude': newPlace.longitude
+    const myStorage = window.localStorage;
+    const [currentUser, setCurrentUser] = useState(myStorage.getItem('username'));
+    const [pins, setPins] = useState([]);
+    const [currentPlaceId, setCurrentPlaceId] = useState(null);
+    const [newPlace, setNewPlace] = useState(null);
+    const [title, setTitle] = useState(null);
+    const [description, setDescription] = useState(null);
+    const [rating, setRating] = useState(0);
+    const [showRegister, setShowRegister] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
+    const [viewState, setViewState] = useState({
+        longitude: 0.1246,
+        latitude: 51.5007,
+        zoom: 5})
+    const [showPopup, setShowPopup] = useState(true);
+    
+    const handleMarkerClick = (id, latitude, longitude) => {
+        setCurrentPlaceId(id);
+        setViewState({...viewState, latitude: latitude, longitude: longitude});
     }
 
-    try {
-      const response = await axios.post("http://localhost:8800/pins", newPin);
-      setPins([...pins, response.data]);
-      setNewPlace(null);
-
-    } catch(error) {
-      console.log(error)
+    const handleAddClick = (e) => {
+        const longitude = e.lngLat.lng;
+        const latitude = e.lngLat.lat;
+        setNewPlace({
+        'latitude': latitude,
+        'longitude': longitude
+        })
+    
     }
-  }
 
-  return (
-    <div>
+    useEffect(() => {
+        const getPins = async () => {
+        try {
+            const response = await axios.get("/pins");
+            setPins(response.data);
+        } catch(e){
+            console.log(e)
+        }
+        }
+        getPins()
+    }, []);
+
+    const handleLogout = () => {
+        myStorage.removeItem('username');
+        setCurrentUser(null);
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const newPin = {
+        'username': currentUser,
+        'title': title,
+        'description': description,
+        'rating': rating,
+        'latitude': newPlace.latitude,
+        'longitude': newPlace.longitude
+        }
+
+        try {
+        const response = await axios.post("/pins", newPin);
+        setPins([...pins, response.data]);
+        setNewPlace(null);
+
+        } catch(error) {
+        console.log(error)
+        }
+    }
+
+    return(
+        <div>
       <Map
     {...viewState}
     onMove={evt => setViewState(evt.viewState)}
@@ -151,7 +152,7 @@ function App() {
              </form>
             </div>
             </Popup>}
-            {currentUser ? (<button className='appLogoutButton' onClick = {handleLogout}>Logout</button>): 
+            {currentUser ? (<button className='appLogoutButton' onClick = {handleLogout}>Logout, {currentUser}</button>): 
             <div className='appButtons'>
               <button className='appLoginButton' onClick={() => setShowLogin(true)}>Login</button>
               <button className='appRegisterButton' onClick={() => setShowRegister(true)}>Register</button>
@@ -160,8 +161,8 @@ function App() {
             {showLogin && <Login setShowLogin = {setShowLogin} myStorage = {myStorage} setCurrentUser = {setCurrentUser}/>}
     </Map>
     </div>
-    
-  );
+
+    );
 }
 
-export default App;
+export default Main;

@@ -31,25 +31,35 @@ router.post("/register", async (req, res) => {
 //user logging in (POST METHOD)
 
 router.post("/login", async (req, res) => {
-    try {
-        //find the user
-        const user = await User.findOne({
-            username: req.body.username
-        })
-        !user && res.status(400).json("Wrong username/password!");
-
-        //validate their password
-        const validPassword = await bcrypt.compare(req.body.password, user.password);
-        !validPassword && res.status(400).json("Wrong username/password!");
-
-        //send res back
-        res.status(200).json({
+    console.log(req.body)
+     //find the user
+     const user = await User.findOne({
+        username: req.body.username
+    })
+    !user && res.status(400).json("Wrong username/password!");
+    //validate their password
+    console.log(user)
+    
+    const validPassword = await bcrypt.compare(req.body.password, user.password);
+    !validPassword && res.status(400).json("Wrong username/password!");
+    
+    if (user && validPassword){
+         //send res back
+         res.status(200).json({
             _id: user._id,
             username: user.username
         });
-    } catch(e) {
-        res.status(500).json(e);
     }
+       
+    /* } catch(e) {
+        if (!user){
+            res.status(400).json("Wrong username/password!");
+        } else if (!validPassword){
+            res.status(400).json("Wrong username/password!");
+        } else {
+            res.status(500).json(e);
+        }
+    } */
 });
 
 module.exports = router; 

@@ -1,9 +1,24 @@
 .loginContainer{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: lightblue;
+}
+.loginBox{
     width: 300px;
-    height: 200px;
+    height: 300px;
     padding: 20px;
     border-radius: 20px;
     background-color: white;
+    -webkit-box-shadow: 0px 0px 15px -6px #000000; 
+    box-shadow: 0px 0px 15px -6px #000000;
     position: absolute;
     top: 0;
     bottom: 0;
@@ -21,6 +36,10 @@
     display: flex;
     align-items: center;
     font-weight: 700;
+    width: 200px;
+    font-size: 100px;
+    margin-top: 6%;
+    margin-right: 4%;
 }
 
 .loginButton{
@@ -30,6 +49,18 @@
     color: white;
     background-color: teal;
     cursor: pointer;
+    margin-bottom: -10%;
+}
+
+.loginText{ 
+    padding: 10px;
+    margin-top: 4%;
+}
+
+.loginPassword{
+    padding: 10px;
+    margin-top: -10%;
+
 }
 
 .loginSuccess{
@@ -46,9 +77,12 @@
 
 }
 
-.loginCancel{
-    position: absolute;
-    top: 7px;
-    right: 7px;
+
+.registerButton{
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    background-color: slateblue;
     cursor: pointer;
 }
