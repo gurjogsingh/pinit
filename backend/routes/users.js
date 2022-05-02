@@ -36,20 +36,26 @@ router.post("/login", async (req, res) => {
      const user = await User.findOne({
         username: req.body.username
     })
-    !user && res.status(400).json("Wrong username/password!");
     //validate their password
     console.log(user)
-    
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
-    !validPassword && res.status(400).json("Wrong username/password!");
+    var validPassword;
+    if (user !== null){
+        validPassword = await bcrypt.compare(req.body.password, user.password);
+    }
     
     if (user && validPassword){
          //send res back
-         res.status(200).json({
-            _id: user._id,
-            username: user.username
-        });
-    }
+        res.status(200).json({
+        _id: user._id,
+        username: user.username
+        })
+    } else if (!user && user !== null){
+        res.status(400).json("Wrong username/password!");
+    } else if (!validPassword){
+        res.status(400).json("Wrong username/password!");
+    } else {
+        res.status(500).json(e);
+        }
        
     /* } catch(e) {
         if (!user){
@@ -57,7 +63,7 @@ router.post("/login", async (req, res) => {
         } else if (!validPassword){
             res.status(400).json("Wrong username/password!");
         } else {
-            res.status(500).json(e);
+            
         }
     } */
 })
