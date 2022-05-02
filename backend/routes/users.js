@@ -60,6 +60,19 @@ router.post("/login", async (req, res) => {
             res.status(500).json(e);
         }
     } */
-});
+})
+
+//getting all users (GET METHOD)
+
+router.get("/", async (req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).json(users);
+    } catch(e) {
+        res.status(500).json(e)
+    }
+})
+
+;
 
 module.exports = router; 

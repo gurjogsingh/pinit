@@ -1,0 +1,138 @@
+.sidebarContainer{
+    height: 650px;
+    width: 235px;
+    position: absolute;
+    background-color: white;
+    right: 0;
+    margin-top: 50px;
+    margin-right: 1%;
+    border-radius: 3%;
+    background-color: lightyellow;
+    
+    display: flex;
+    flex-direction: column;
+}
+.sidebarPins{
+    overflow: scroll;
+    height: 550px;
+
+}
+.sidebarPlace{
+    margin-left: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    box-shadow: 0px 0px 9px -7px #000;
+    border-radius: 5px;
+    width: 200px;
+    height: 100px;
+    background-color: aliceblue;
+   
+}
+
+.sidebarItems{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.sidebarTitle{
+    margin-left: 5%;
+    font-size: 15px;
+    margin-top: 5%;
+
+}
+.sidebarDesc{
+    margin-left: 5%;
+    font-size: 13px;
+    margin-top: 3%;
+
+}
+.sidebarRating{
+    margin-left: 4%;
+    margin-top: 3%;
+
+}
+.sidebarPin{
+    cursor: pointer;
+    color: tomato;
+    right: 0;
+    position: relative;
+    left: 170px;
+    top: -20px;
+}
+
+.sidebarHeader{
+    text-align: center;
+    font-size: 25px;
+    font-weight: 700px;
+    margin-top: 10%;
+    color: teal;
+    margin-bottom: 5%;
+
+}
+
+.sidebarButtons{
+    display: flex;
+    align-items: center;
+
+}
+
+.sidebarMyPins{
+    position: relative;
+    margin-left: 14%;
+    margin-bottom: 2%;
+    margin-top: 4%;
+    padding: 7px;
+    background-color:teal;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    cursor: pointer;
+
+
+}
+.sidebarOtherUsers{
+    position: relative;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    margin-top: 4%;
+    padding: 7px;
+    background-color:teal;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    cursor: pointer;
+
+
+}
+
+.sidebarUsers{
+    overflow: scroll;
+    height: 550px;
+
+}
+
+.sidebarUser{
+    margin-left: 5%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    box-shadow: 0px 0px 9px -7px #000;
+    border-radius: 5px;
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
+    background-color: aliceblue;
+
+
+}
+
+.sidebarUsername{
+    position: relative;
+    left: 65px;
+    top: 10px;
+    font-size: 16px;
+    color: red
+    
+    
+
+}

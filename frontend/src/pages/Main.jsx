@@ -8,6 +8,8 @@ import {Room, Star} from "@mui/icons-material"
 import {format} from 'timeago.js'
 import Register from './Register';
 import Login from './Login';
+import { useNavigate } from "react-router-dom";
+import Sidebar from '../components/Sidebar';
 
 function Main(){
 
@@ -22,10 +24,10 @@ function Main(){
     const [showRegister, setShowRegister] = useState(false);
     const [showLogin, setShowLogin] = useState(false);
     const [viewState, setViewState] = useState({
-        longitude: 0.1246,
-        latitude: 51.5007,
-        zoom: 5})
-    const [showPopup, setShowPopup] = useState(true);
+        longitude: -113.4687,
+        latitude: 53.5501,
+        zoom: 13})
+    let navigate = useNavigate();
     
     const handleMarkerClick = (id, latitude, longitude) => {
         setCurrentPlaceId(id);
@@ -57,6 +59,8 @@ function Main(){
     const handleLogout = () => {
         myStorage.removeItem('username');
         setCurrentUser(null);
+        navigate('/login')
+
     }
 
     const handleSubmit = async (e) => {
@@ -152,13 +156,12 @@ function Main(){
              </form>
             </div>
             </Popup>}
-            {currentUser ? (<button className='appLogoutButton' onClick = {handleLogout}>Logout, {currentUser}</button>): 
-            <div className='appButtons'>
-              <button className='appLoginButton' onClick={() => setShowLogin(true)}>Login</button>
-              <button className='appRegisterButton' onClick={() => setShowRegister(true)}>Register</button>
-            </div> }
-            {showRegister && <Register setShowRegister = {setShowRegister}/>}
-            {showLogin && <Login setShowLogin = {setShowLogin} myStorage = {myStorage} setCurrentUser = {setCurrentUser}/>}
+            <div className='sidebar'>
+                <button className='appLogoutButton' onClick = {handleLogout}>Logout, {currentUser}</button>
+                <Sidebar pins = {pins} setViewState = {setViewState} setCurrentPlaceId = {setCurrentPlaceId} viewState = {viewState} currentUser = {currentUser}/>
+            </div>
+            
+               
     </Map>
     </div>
 
